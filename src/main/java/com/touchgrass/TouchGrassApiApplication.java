@@ -1,4 +1,4 @@
-package com.touchgrass.touch_grass_api;
+package com.touchgrass;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

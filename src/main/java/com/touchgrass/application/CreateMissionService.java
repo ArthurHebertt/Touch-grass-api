@@ -5,7 +5,9 @@ import com.touchgrass.domain.model.GeneratedMissionContent;
 import com.touchgrass.domain.model.Mission;
 import com.touchgrass.domain.port.MissionGenerator;
 import com.touchgrass.domain.port.MissionRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class CreateMissionService {
 
     private MissionGenerator missionGenerator;

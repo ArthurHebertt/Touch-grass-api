@@ -1,8 +1,9 @@
 package com.touchgrass.infra.adapter.inbound;
 
-import com.touchgrass.application.CompleteMissionService;
-import com.touchgrass.application.CreateMissionService;
-import com.touchgrass.application.GetMissionByIdService;
+import com.touchgrass.application.useCase.CompleteMissionService;
+import com.touchgrass.application.useCase.CreateMissionService;
+import com.touchgrass.application.useCase.GetAllMissionsService;
+import com.touchgrass.application.useCase.GetMissionByIdService;
 import com.touchgrass.domain.model.Mission;
 import com.touchgrass.infra.adapter.inbound.dto.request.CreateMissionRequest;
 import com.touchgrass.infra.adapter.inbound.dto.response.MissionResponseDto;
@@ -12,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -26,11 +28,14 @@ public class MissionController {
 
     private final CompleteMissionService completeMissionService;
 
-    public MissionController(MissionResponseMapper missionResponseMapper, CreateMissionService createMissionService, GetMissionByIdService getMissionByIdService, CompleteMissionService completeMissionService) {
+    private final GetAllMissionsService getAllMissionsService;
+
+    public MissionController(MissionResponseMapper missionResponseMapper, CreateMissionService createMissionService, GetMissionByIdService getMissionByIdService, CompleteMissionService completeMissionService, GetAllMissionsService getAllMissionsService) {
         this.missionResponseMapper = missionResponseMapper;
         this.createMissionService = createMissionService;
         this.getMissionByIdService = getMissionByIdService;
         this.completeMissionService = completeMissionService;
+        this.getAllMissionsService = getAllMissionsService;
     }
 
     @PostMapping
@@ -50,6 +55,14 @@ public class MissionController {
     public ResponseEntity<MissionResponseDto> completeMission (@PathVariable UUID id) {
         Mission mission = completeMissionService.completeMission(id);
         return ResponseEntity.ok(missionResponseMapper.toMissionDto(mission));
+    }
+
+    @GetMapping
+    public ResponseEntity<List<MissionResponseDto>> findAllMissions () {
+        List<Mission> missions = getAllMissionsService.getAllMission();
+        return ResponseEntity.ok(missions.stream()
+                .map(missionResponseMapper::toMissionDto)
+                .toList());
     }
 
 }

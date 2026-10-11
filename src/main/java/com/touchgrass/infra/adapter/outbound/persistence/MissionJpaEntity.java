@@ -16,6 +16,7 @@ public class MissionJpaEntity {
 
     private String title;
 
+    @Column(columnDefinition = "TEXT")
     private String message;
 
     private String activity;

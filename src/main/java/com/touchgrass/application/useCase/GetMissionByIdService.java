@@ -1,4 +1,4 @@
-package com.touchgrass.application;
+package com.touchgrass.application.useCase;
 
 import com.touchgrass.application.Exceptions.MissionNotFoundException;
 import com.touchgrass.domain.model.Mission;

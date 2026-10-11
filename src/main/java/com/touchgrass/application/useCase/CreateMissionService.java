@@ -1,4 +1,4 @@
-package com.touchgrass.application;
+package com.touchgrass.application.useCase;
 
 import com.touchgrass.domain.model.Difficulty;
 import com.touchgrass.domain.model.GeneratedMissionContent;
